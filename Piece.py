@@ -3,18 +3,31 @@ import pygame
 class Piece:
 
     def __init__(self, screen, img):
-        self.image = img
-        self.x_tile = 0
-        self.y_tile = 0
+        self.image = pygame.image.load(img)
         self.x = 0
         self.y = 0
+        self.rect = pygame.Rect(100, 100, 100, 100)
         self.screen = screen
 
 
-    def move(self):
+    def move_direct(self):
         pass
 
+    def move_drag(self):
+        pass
+
+    def get_cords(self):
+        pass
+
+
+
     def draw(self):
-        self.screen.blit(self.image, (self.x,self.y))
+
+        x_pixels = self.x * 100
+        y_pixels = self.y * 100
+
+
+
+        self.screen.blit(self.image, (x_pixels,y_pixels))
 
 

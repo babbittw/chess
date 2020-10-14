@@ -1,12 +1,42 @@
 # This is a sample Python script.
 
 import pygame
-import Piece
+from Piece import Piece
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 SCREEN_SIZE_PIXELS = 1000
 TILE_SIZE_PIXELS = .1 * SCREEN_SIZE_PIXELS
+
+def get_cords(rect):
+    x = rect.x // 100
+    y = rect.y // 100
+
+    return (x, y)
+
+def get_valid_moves(old_x, old_y):
+    x = old_x // 100
+    y = old_y // 100
+
+    output = []
+
+    output.append((x + 1, y))
+    output.append((x - 1, y))
+    output.append((x + 1, y + 1))
+    output.append((x + 1, y - 1))
+    output.append((x - 1, y + 1))
+    output.append((x - 1, y - 1))
+    output.append((x, y + 1))
+    output.append((x, y - 1))
+
+    return output
+
+def is_valid(old_x, old_y, new_x, new_y):
+    moves = get_valid_moves(old_x, old_y)
+
+    if (new_x, new_y) in moves:
+        return True
+    return False
 
 
 
@@ -26,12 +56,16 @@ def main():
 
 
 
-    #test = Piece(screen, pygame.image.load('pieces/B-Pawn.png'))
+    # test = Piece(screen, 'pieces/B-Pawn.png')
 
-    pawn = pygame.image.load("pieces/B-Pawn.png")
-    pawn = pygame.transform.scale(pawn, (100, 100))
+    king = pygame.image.load("pieces/B-King.png")
+    king = pygame.transform.scale(king, (100, 100))
     rect = pygame.Rect(100, 100, 100 , 100)
     rect_dragging = False
+
+    pieces = []
+
+
 
     running = True
     while running:
@@ -45,6 +79,8 @@ def main():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     if rect.collidepoint(event.pos):
+                        old_x = rect.x
+                        old_y = rect.y
                         rect_dragging = True
                         mouse_x, mouse_y = event.pos
                         offset_x = rect.x - mouse_x
@@ -53,6 +89,14 @@ def main():
                 if event.button == 1:
                     rect.x = round(rect.x, -2)
                     rect.y = round(rect.y, -2)
+
+                    cords = get_cords(rect)
+                    if not is_valid(old_x, old_y, cords[0], cords[1]):
+                        rect.x = old_x
+                        rect.y = old_y
+                        rect.x = round(rect.x, -2)
+                        rect.y = round(rect.y, -2)
+
                     rect_dragging = False
 
             elif event.type == pygame.MOUSEMOTION:
@@ -66,8 +110,8 @@ def main():
 
 
 
-
-        screen.blit(pawn, (rect.x, rect.y))
+        print(get_cords(rect))
+        screen.blit(king, (rect.x, rect.y))
 
 
 
