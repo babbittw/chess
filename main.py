@@ -2,6 +2,7 @@
 
 import pygame
 from Piece import Piece
+from King import King
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
@@ -58,10 +59,17 @@ def main():
 
     # test = Piece(screen, 'pieces/B-Pawn.png')
 
-    king = pygame.image.load("pieces/B-King.png")
-    king = pygame.transform.scale(king, (100, 100))
-    rect = pygame.Rect(100, 100, 100 , 100)
-    rect_dragging = False
+    # king = pygame.image.load("pieces/B-King.png")
+    # king = pygame.transform.scale(king, (100, 100))
+    # rect = pygame.Rect(100, 100, 100 , 100)
+    # rect_dragging = False
+
+    king = King(screen, "pieces/B-King.png")
+
+
+
+
+
 
     pieces = []
 
@@ -76,42 +84,44 @@ def main():
                 # change the value to False, to exit the main loop
                 running = False
 
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:
-                    if rect.collidepoint(event.pos):
-                        old_x = rect.x
-                        old_y = rect.y
-                        rect_dragging = True
-                        mouse_x, mouse_y = event.pos
-                        offset_x = rect.x - mouse_x
-                        offset_y = rect.y - mouse_y
-            elif event.type == pygame.MOUSEBUTTONUP:
-                if event.button == 1:
-                    rect.x = round(rect.x, -2)
-                    rect.y = round(rect.y, -2)
 
-                    cords = get_cords(rect)
-                    if not is_valid(old_x, old_y, cords[0], cords[1]):
-                        rect.x = old_x
-                        rect.y = old_y
-                        rect.x = round(rect.x, -2)
-                        rect.y = round(rect.y, -2)
 
-                    rect_dragging = False
 
-            elif event.type == pygame.MOUSEMOTION:
-                if rect_dragging:
-                    mouse_x, mouse_y = event.pos
-                    rect.x = mouse_x + offset_x
-                    rect.y = mouse_y + offset_y
+            # elif event.type == pygame.MOUSEBUTTONDOWN:
+            #     if event.button == 1:
+            #         if rect.collidepoint(event.pos):
+            #             old_x = rect.x
+            #             old_y = rect.y
+            #             rect_dragging = True
+            #             mouse_x, mouse_y = event.pos
+            #             offset_x = rect.x - mouse_x
+            #             offset_y = rect.y - mouse_y
+            # elif event.type == pygame.MOUSEBUTTONUP:
+            #     if event.button == 1:
+            #         rect.x = round(rect.x, -2)
+            #         rect.y = round(rect.y, -2)
+            #
+            #         cords = get_cords(rect)
+            #         if not is_valid(old_x, old_y, cords[0], cords[1]):
+            #             rect.x = old_x
+            #             rect.y = old_y
+            #             rect.x = round(rect.x, -2)
+            #             rect.y = round(rect.y, -2)
+            #
+            #         rect_dragging = False
+            #
+            # elif event.type == pygame.MOUSEMOTION:
+            #     if rect_dragging:
+            #         mouse_x, mouse_y = event.pos
+            #         rect.x = mouse_x + offset_x
+            #         rect.y = mouse_y + offset_y
 
         screen.fill((105, 105, 105))
         draw_board(screen)
 
+        king.draw()
 
 
-        print(get_cords(rect))
-        screen.blit(king, (rect.x, rect.y))
 
 
 

@@ -1,9 +1,12 @@
 import pygame
 
+
+
 class Piece:
 
     def __init__(self, screen, img):
         self.image = pygame.image.load(img)
+        self.image = pygame.transform.scale(self.image, (100,100))
         self.x = 0
         self.y = 0
         self.rect = pygame.Rect(100, 100, 100, 100)
