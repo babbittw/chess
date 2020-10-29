@@ -1,5 +1,5 @@
 import pygame
-
+import abc
 
 
 class Piece:
@@ -7,9 +7,9 @@ class Piece:
     def __init__(self, screen, img):
         self.image = pygame.image.load(img)
         self.image = pygame.transform.scale(self.image, (100,100))
-        self.x = 0
-        self.y = 0
-        self.rect = pygame.Rect(100, 100, 100, 100)
+        self.x = 1
+        self.y = 1
+        self.rect = pygame.Rect(self.x * 100, self.y * 100, 100, 100)
         self.screen = screen
 
 
@@ -22,6 +22,12 @@ class Piece:
     def get_cords(self):
         pass
 
+
+    def get_valid_moves(self, old_x, old_y):
+        pass
+
+    def draw_valid_moves(self):
+        pass
 
 
     def draw(self):

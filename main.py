@@ -64,15 +64,17 @@ def main():
     # rect = pygame.Rect(100, 100, 100 , 100)
     # rect_dragging = False
 
-    king = King(screen, "pieces/B-King.png")
+    black_king = King(screen, "pieces/B-King.png", 1, 1)
 
-
+    white_king = King(screen, "pieces/W-King.png", 5, 5)
 
 
 
 
     pieces = []
 
+
+    selected = None
 
 
     running = True
@@ -119,7 +121,11 @@ def main():
         screen.fill((105, 105, 105))
         draw_board(screen)
 
-        king.draw()
+        black_king.draw()
+        black_king.draw_valid_moves()
+
+        white_king.draw()
+        white_king.draw_valid_moves()
 
 
 
